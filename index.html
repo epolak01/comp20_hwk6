@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title>Lucky Lottery</title>
+
+</head>
+
+<body>
+    
+    <h1>Welcome to the Lottery</h1>
+      
+    <script language="javascript">
+        var randNumArr = [6];
+
+        //Fill array with numbers 1-48
+        for (var i = 0; i < 5; i++) {
+            randNumArr[i] = Math.random() * 47 + 1;
+            randNumArr[i] = Math.round(randNumArr[i])
+        }
+
+        //Fill lucky spot with number 1-18
+        randNumArr[5] = Math.random() * 17 + 1;
+        randNumArr[5] = Math.round(randNumArr[5])
+
+
+        document.write("<div id='arrtitle1'> Random Number Array: </div>")
+        //Print out array
+        for (var i = 0; i < 6; i++) {
+            document.write("<div class='array1'>" + randNumArr[i] + "</div>")
+        }
+        
+        //Store Lucky number for later use
+        var luckyNum = randNumArr[5];
+        
+        document.write("<div id='arrtitle2'> Sorted Array: </div>")
+
+        //Sort array exluding lucky number
+        var noLucky = randNumArr.splice(0,5);
+        noLucky.sort(function (a, b) {
+            return a - b;
+        });
+
+        //Add lucky number back into array at the end
+        var wLucky = [6];
+
+        for (var i = 0; i < 5; i++) {
+            wLucky[i] = noLucky[i];
+        }
+
+        wLucky[5] = luckyNum;
+
+        // Print out sorted array
+        for (var i = 0; i < 6; i++) {
+                document.write("<div class='array2'>" + wLucky[i] + "</div>");
+        }
+
+        // Calculate payout
+        function calcPay() {
+            var inputArraystr = document.getElementById("lotNum").value;
+            var inputLucky = document.getElementById("luckyNum").value;
+
+            var inputArr = inputArraystr.split(" ");
+
+            //Convert Array to ints
+            for (var i = 0; i < 5; i++) {
+                inputArr[i] = parseInt(inputArr[i]);
+            }
+
+            //Calculate how many nums are same between lot array and input
+            var sameNum = 0;
+            for (var i = 0; i < 5; i++) {
+                if (inputArr[i] == wLucky[i]) {
+                    sameNum++;
+                }
+            }
+
+            var lucky = false;
+            if (parseInt(inputLucky) == wLucky[5]) {
+                lucky = true;
+            }
+
+            switch (sameNum) {
+                case 0:
+                    if (lucky) {
+                        document.getElementById("payout").innerHTML = "Payout: $4";
+                    } else {
+                        document.getElementById("payout").innerHTML = "Payout: $0";
+                    }
+                    break;
+                case 1:
+                    if (lucky) {
+                        document.getElementById("payout").innerHTML = "Payout: $6";
+                    } else {
+                        document.getElementById("payout").innerHTML = "Payout: $0";
+                    }
+                    break;
+                case 2:
+                    if (lucky) {
+                        document.getElementById("payout").innerHTML = "Payout: $25";
+                    } else {
+                        document.getElementById("payout").innerHTML = "Payout: $3";
+                    }
+                    break;
+                case 3:
+                    if (lucky) {
+                            document.getElementById("payout").innerHTML = "Payout: $150";
+                    } else {
+                        document.getElementById("payout").innerHTML = "Payout: $20";
+                    }
+                    break;
+                case 4:
+                    if (lucky) {
+                        document.getElementById("payout").innerHTML = "Payout: $5,000";
+                    } else {
+                        document.getElementById("payout").innerHTML = "Payout: $200";
+                    }
+                    break;
+                case 5:
+                    if (lucky) {
+                        document.getElementById("payout").innerHTML = "Payout: $7,000 a WEEK for LIFE!"; 
+                    } else {
+                        document.getElementById("payout").innerHTML = "Payout: $25,000 a YEAR for LIFE!";
+                    }
+                    break;
+            }
+    }
+    </script>
+
+    <form>
+        Lottery Numbers <input type="text" id='lotNum'>
+        Lucky Number <input type="text" id='luckyNum'>
+    
+        <button type='button' onclick="calcPay()">Calculate Payout</button>
+    </form>
+    
+    <div id="payout">Payout: </div>
+
+    <a href="amicable.html">Amicable Page</a>
+
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title>Amicable Numbers</title>
+</head>
+
+<body>
+    <h1>Welcome to the Amicable Number Calculator</h1>
+
+    <form>
+        Number 1: <input type="text" id="numa">
+        Number 2: <input type="text" id="numb">
+        <button type='button' onclick="calcA()">Calculate</button>
+    </form>
+    
+    <div id="numOne">First Number: </div>
+    <div id="numTwo">Second Number: </div>
+
+    <div id="result"> </div>
+
+    <script language="javascript">
+
+        // Reads in two numbers from page and returns an array of them
+        function readNums() {
+            var num1 = document.getElementById("numa").value;
+            var num2 = document.getElementById("numb").value;
+
+            document.getElementById("numOne").innerHTML = "First Number: " + num1;
+            document.getElementById("numTwo").innerHTML = "Second Number: " + num2;
+
+            var numArray = new Array();
+            numArray.push(parseFloat(num1));
+            numArray.push(parseFloat(num2));
+
+            return numArray;
+        }
+
+        // Determines whether a test is a factor of num
+        function isFactor(num, test) {
+            if ((num % test) == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //Test code
+        //alert("1 and 2 " + isFactor(1,2));
+        //alert("10 and 5 " + isFactor(10, 5));
+        //alert("56 and 3 " + isFactor(56, 3));
+        //alert("44 and 11 " + isFactor(44, 11));
+
+        // Prints array out to page
+        function showFactors(array) {
+            document.write("<div>" + array.toString() + "</div>");
+        }
+        
+        //Test Code
+        //showFactors([1,2,3,4]);
+        //showFactors([1,0,3,2,7]);
+        //showFactors([0]);
+        //showFactors([2,56]);
+
+        // Calculate the sum of all elements of an array
+        function addFactors(array) {
+            var sum = 0;
+            for(var i = 0; i < array.length; i++) {
+                sum = sum + array[i];
+            }
+            return sum;
+        }
+
+        //Test code
+        //alert(addFactors([1,2,3]));
+        //alert(addFactors([1,0,3, 2,7]));
+        //alert(addFactors([0,0,0]));
+        //alert(addFactors([1,2,56]));
+
+        // Calculate the factors for target number and returns an array of them
+        function getFactors(target) {
+            var factorArray = new Array();
+            
+            for(var i = 1; i < target; i++){
+                if (isFactor(target, i)) {
+                    factorArray.push(i);
+                }
+            }
+            return factorArray;
+        }
+
+        //Test Code
+        //showFactors(getFactors(1));
+        //showFactors(getFactors(100));
+        //showFactors(getFactors(56));
+        //showFactors(getFactors(25));
+        //showFactors(getFactors(43));
+        //showFactors(getFactors(13));
+
+        // Displays whether numbers are amicable or not
+        function calcA() {
+            var numArray = readNums();
+
+            var sum1 = addFactors(getFactors(numArray[0]));
+            var sum2 = addFactors(getFactors(numArray[1]));
+
+            // Print result to page
+            if ((sum1 == numArray[1]) && (sum2 == numArray[0])) {
+                document.getElementById("result").innerHTML = "Numbers are Amicable!"
+            } else {
+                document.getElementById("result").innerHTML = "Numbers are not Amicable."
+            }
+        }
+    </script>
+
+    <a href="index.html">Lottery Page</a>
+
+</body>
+
+</html>
