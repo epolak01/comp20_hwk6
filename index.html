@@ -15,8 +15,18 @@
 
         //Fill array with numbers 1-48
         for (var i = 0; i < 5; i++) {
-            randNumArr[i] = Math.random() * 47 + 1;
-            randNumArr[i] = Math.round(randNumArr[i])
+            // Make sure each number is different
+            newNum = Math.random() * 47 + 1;
+            newNum = Math.round(newNum);
+
+            if (randNumArr.includes(newNum)){
+                i--;
+            } else {
+                randNumArr[i] = newNum;
+            }
+
+            //randNumArr[i] = Math.random() * 47 + 1;
+            //randNumArr[i] = Math.round(randNumArr[i])
         }
 
         //Fill lucky spot with number 1-18
@@ -66,6 +76,10 @@
             for (var i = 0; i < 5; i++) {
                 inputArr[i] = parseInt(inputArr[i]);
             }
+
+            inputArr.sort(function (a,b) {
+               return a - b; 
+            });
 
             //Calculate how many nums are same between lot array and input
             var sameNum = 0;
